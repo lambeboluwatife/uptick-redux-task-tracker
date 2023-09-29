@@ -7,6 +7,13 @@ const Task = ({ task, onToggle }) => {
       <h3>{task.text}</h3>
       <h5>{task.description}</h5>
       <h6>{task.date}</h6>
+      <h6
+        className={`priority ${
+          task.priority === "not important" ? "not-important" : ""
+        }`}
+      >
+        {task.priority}
+      </h6>
     </div>
   );
 };
