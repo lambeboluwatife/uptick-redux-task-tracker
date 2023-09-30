@@ -33,6 +33,7 @@ const Tasks = ({ tasks, onToggle, onEditClick, onDelete }) => {
             </div>
           ))
         : "No Completed Task"}
+      <h6 style={{ margin: "1rem 0" }}>Double Click Task to change status</h6>
       <button className="all-tasks" onClick={() => setShowTasks(!showTasks)}>
         All Tasks
       </button>

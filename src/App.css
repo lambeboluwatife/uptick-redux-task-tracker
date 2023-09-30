@@ -126,7 +126,6 @@ body {
   border-radius: 5px;
   border: 1px solid blue;
   cursor: pointer;
-  margin: 2rem 0 0 0;
 }
 
 .pending-tasks {
