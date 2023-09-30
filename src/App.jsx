@@ -3,6 +3,7 @@ import "./App.css";
 import AddTask from "./components/AddTask";
 import Header from "./components/Header";
 import Tasks from "./components/Tasks";
+import Notification from "./components/Notification";
 
 import { useDispatch, useSelector } from "react-redux";
 import { tasksActions } from "./data/slice";
@@ -15,6 +16,10 @@ const App = () => {
   const [showAddTask, setShowAddTask] = useState(false);
   const [currentTask, setCurrentTask] = useState({});
   const [isEditing, setIsEditing] = useState(false);
+
+  const [showNotification, setShowNotification] = useState(false);
+  const [notificationText, setNotificationText] = useState("");
+  const [notificationType, setNotificationType] = useState("");
 
   const tasksFromDB = useLiveQuery(() => db.tasks.reverse().toArray(), []);
 
@@ -35,6 +40,9 @@ const App = () => {
 
     dispatch(tasksActions.addTask(newTask));
     setShowAddTask(false);
+    setShowNotification(!showNotification);
+    setNotificationText("Task Added");
+    setNotificationType("success");
   };
 
   // Select Task to Update
@@ -47,7 +55,12 @@ const App = () => {
   // Update Task
   const updateTask = async (id, updatedTask) => {
     db.tasks.update(id, updatedTask).then(function (updated) {
-      if (updated) dispatch(tasksActions.updateTask({ id, ...updatedTask }));
+      if (updated) {
+        dispatch(tasksActions.updateTask({ id, ...updatedTask }));
+        setShowNotification(!showNotification);
+        setNotificationText("Task Updated");
+        setNotificationType("success");
+      }
     });
     setIsEditing(false);
   };
@@ -58,14 +71,20 @@ const App = () => {
 
     db.tasks.update(id, { completed: !completed }).then(() => {
       dispatch(tasksActions.toggleStatus(id));
+      setShowNotification(!showNotification);
+      setNotificationText("Task Status Changed");
+      setNotificationType("success");
     });
   };
 
   // Delete Task
   const deleteTask = async (id) => {
     db.transaction("rw", db.tasks, function () {
-      return db.tasks.delete(id);
+      db.tasks.delete(id);
       dispatch(tasksActions.deleteTask(id));
+      setShowNotification(!showNotification);
+      setNotificationText("Task Deleted");
+      setNotificationType("error");
     }).catch((err) => {
       alert(err);
       throw err;
@@ -104,6 +123,13 @@ const App = () => {
           </>
         )}
       </div>
+      {showNotification && (
+        <Notification text={notificationText} type={notificationType} />
+      )}
+      {showNotification &&
+        setTimeout(() => {
+          setShowNotification(false);
+        }, 3000)}
     </>
   );
 };
