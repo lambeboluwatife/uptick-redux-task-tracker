@@ -6,6 +6,7 @@ const AddTask = ({ onAdd }) => {
   const [description, setDescription] = useState("");
   const [priority, setPriority] = useState("");
   const date = moment().format("MMM D, YYYY");
+  const completed = false;
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -23,7 +24,7 @@ const AddTask = ({ onAdd }) => {
       return;
     }
 
-    onAdd({ text, description, priority, date });
+    onAdd({ text, description, priority, completed, date });
 
     setText("");
     setDescription("");

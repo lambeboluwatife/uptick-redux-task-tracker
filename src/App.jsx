@@ -28,7 +28,6 @@ function App() {
     setShowAddTask(false);
     setIsEditing(true);
     setCurrentTask(tasksState.tasks.find((task) => task.id === id));
-    console.log(currentTask);
   };
 
   // Update Task
@@ -39,19 +38,11 @@ function App() {
 
   // Delete Task
   const deleteTask = async (id) => {
-    dispatch(tasksActions.deleteTask({ id: id }));
+    dispatch(tasksActions.deleteTask(id));
   };
 
   const toggleStatus = (id) => {
-    const taskToToggle = tasks.map((task) => id === task.id);
-    console.log(taskToToggle);
-    const updateTask = { ...taskToToggle, completed: !taskToToggle.completed };
-
-    setTasks(
-      tasks.map((task) =>
-        task.id === id ? { ...task, completed: updateTask.completed } : task
-      )
-    );
+    dispatch(tasksActions.toggleStatus(id));
   };
   return (
     <>

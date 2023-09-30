@@ -9,8 +9,7 @@ const tasksSlice = createSlice({
       state.tasks = [action.payload, ...state.tasks];
     },
     updateTask: (state, action) => {
-      const { id, text, description, priority, completed, date } =
-        action.payload;
+      const { id, text, description, priority } = action.payload;
       const taskToUpdate = state.tasks.find((task) => task.id == id);
 
       if (taskToUpdate) {
@@ -21,12 +20,20 @@ const tasksSlice = createSlice({
         taskToUpdate.date;
       }
     },
-    deleteTask: (state, action) => {
-      const { id } = action.payload;
-      const taskToDelete = state.tasks.find((task) => task.id == id);
-      if (taskToDelete) {
-        return state.tasks.filter((task) => task.id !== id);
+    toggleStatus: (state, action) => {
+      const taskToToggle = state.tasks.find(
+        (task) => task.id == action.payload
+      );
+
+      if (taskToToggle) {
+        taskToToggle.completed = !taskToToggle.completed;
       }
+    },
+    deleteTask: (state, action) => {
+      return {
+        ...state,
+        tasks: state.tasks.filter((task) => task.id !== action.payload),
+      };
     },
   },
 });
