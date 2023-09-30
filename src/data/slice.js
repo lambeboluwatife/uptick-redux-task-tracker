@@ -1,17 +1,25 @@
 import { createSlice } from "@reduxjs/toolkit";
-import tasks from "./tasks";
+// import tasks from "./tasks";
 
 const tasksSlice = createSlice({
   name: "tasks",
-  initialState: { tasks },
+  initialState: { tasks: [] },
   reducers: {
+    getTasks: (state, action) => {
+      return {
+        ...state,
+        tasks: action.payload,
+      };
+    },
     addTask: (state, action) => {
-      state.tasks = [action.payload, ...state.tasks];
+      return {
+        ...state,
+        tasks: [...state.tasks, action.payload],
+      };
     },
     updateTask: (state, action) => {
       const { id, text, description, priority } = action.payload;
       const taskToUpdate = state.tasks.find((task) => task.id == id);
-
       if (taskToUpdate) {
         taskToUpdate.text = text;
         taskToUpdate.description = description;
