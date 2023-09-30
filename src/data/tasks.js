@@ -6,7 +6,7 @@ const tasks = [
     text: "Groceries",
     description: "Go to the supermarket to get groceries needed at home",
     priority: "important",
-    completed: true,
+    completed: false,
     date: moment().format("MMM D, YYYY"),
   },
   {

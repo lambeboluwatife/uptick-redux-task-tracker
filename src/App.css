@@ -81,12 +81,6 @@ body {
   background-color: red;
 }
 
-.task h3 {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
 .add-form {
   margin-bottom: 40px;
 }
