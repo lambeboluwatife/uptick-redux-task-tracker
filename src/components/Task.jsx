@@ -5,7 +5,7 @@ const Task = ({ task, onToggle, onEditClick, onDelete }) => {
   return (
     <div
       className={`task ${task.completed ? "reminder" : ""}`}
-      onDoubleClick={() => onToggle(task.id)}
+      onDoubleClick={() => onToggle(task.id, task.completed)}
     >
       <h3>
         {task.text}
@@ -26,7 +26,7 @@ const Task = ({ task, onToggle, onEditClick, onDelete }) => {
       <h6>{task.date}</h6>
       <h6
         className={`priority ${
-          task.priority === "not important" ? "not-important" : ""
+          task.priority === "Not Important" ? "not-important" : ""
         }`}
       >
         {task.priority}

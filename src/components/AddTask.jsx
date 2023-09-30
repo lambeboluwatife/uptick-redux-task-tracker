@@ -58,8 +58,8 @@ const AddTask = ({ onAdd }) => {
         <select value={priority} onChange={(e) => setPriority(e.target.value)}>
           {" "}
           <option>Choose Priority</option>
-          <option value="important">Important</option>
-          <option value="not important">Not Important</option>
+          <option value="Important">Important</option>
+          <option value="Not Important">Not Important</option>
         </select>
       </div>
 
