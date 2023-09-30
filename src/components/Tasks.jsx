@@ -4,7 +4,7 @@ import { faRemove } from "@fortawesome/free-solid-svg-icons";
 import Task from "./Task";
 
 const Tasks = ({ tasks, onToggle, onEditClick, onDelete }) => {
-  const [showTasks, setShowTasks] = useState(false);
+  const [showTasks, setShowTasks] = useState(true);
   const [showPendingTasks, setShowPendingTasks] = useState(false);
 
   const completedTasks = tasks.filter((task) => task.completed === true);
