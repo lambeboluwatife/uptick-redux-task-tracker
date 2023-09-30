@@ -1,11 +1,11 @@
+import { faRemove } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
-import moment from "moment/moment";
 
-const AddTask = ({ onAdd }) => {
-  const [text, setText] = useState("");
-  const [description, setDescription] = useState("");
-  const [priority, setPriority] = useState("");
-  const date = moment().format("MMM D, YYYY");
+const EditTask = ({ currentTask, isEditing, onUpdate }) => {
+  const [text, setText] = useState(currentTask.text);
+  const [description, setDescription] = useState(currentTask.description);
+  const [priority, setPriority] = useState(currentTask.priority);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -23,17 +23,21 @@ const AddTask = ({ onAdd }) => {
       return;
     }
 
-    onAdd({ text, description, priority, date });
-
-    setText("");
-    setDescription("");
-    setPriority("");
+    onUpdate(currentTask.id, { text, description, priority });
   };
 
   return (
-    <form className="add-form" onSubmit={onSubmit}>
+    <form className="update-form" onSubmit={onSubmit}>
+      <h5 style={{ textAlign: "center" }}>Edit Birthday</h5>
       <div className="form-control">
-        <label>Task</label>
+        <label>
+          Task
+          <FontAwesomeIcon
+            icon={faRemove}
+            style={{ color: "red", float: "right", cursor: "pointer" }}
+            onClick={isEditing}
+          />
+        </label>
         <input
           type="text"
           placeholder="Add Task"
@@ -62,9 +66,9 @@ const AddTask = ({ onAdd }) => {
         </select>
       </div>
 
-      <input type="submit" value="Save Task" className="btn btn-block" />
+      <input type="submit" value="Update Task" className="btn btn-block" />
     </form>
   );
 };
 
-export default AddTask;
+export default EditTask;

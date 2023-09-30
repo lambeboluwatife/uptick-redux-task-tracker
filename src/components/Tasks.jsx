@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Task from "./Task";
 
-const Tasks = ({ tasks, onToggle }) => {
+const Tasks = ({ tasks, onToggle, onEditClick, onDelete }) => {
   const [showTasks, setShowTasks] = useState(false);
   const [showPendingTasks, setShowPendingTasks] = useState(false);
 
@@ -12,7 +12,17 @@ const Tasks = ({ tasks, onToggle }) => {
     <>
       <h3>Completed Tasks</h3>
       {completedTasks.length > 0
-        ? completedTasks.map((task) => <Task key={task.id} task={task} />)
+        ? completedTasks.map((task) => (
+            <div
+              className={`task ${task.completed ? "reminder" : ""}`}
+              key={task.id}
+            >
+              <h3>{task.text}</h3>
+              <h5>{task.description}</h5>
+              <h6>{task.date}</h6>
+              <h6>{task.priority}</h6>
+            </div>
+          ))
         : "No Completed Task"}
       <button className="all-tasks" onClick={() => setShowTasks(!showTasks)}>
         All Tasks
@@ -22,8 +32,10 @@ const Tasks = ({ tasks, onToggle }) => {
           <Task
             key={task.id}
             task={task}
+            onEditClick={onEditClick}
             onToggle={onToggle}
             showTasks={showTasks}
+            onDelete={onDelete}
           />
         ))}
       <button
@@ -37,8 +49,10 @@ const Tasks = ({ tasks, onToggle }) => {
           <Task
             key={task.id}
             task={task}
+            onEditClick={onEditClick}
             onToggle={onToggle}
             showTasks={showTasks}
+            onDelete={onDelete}
           />
         ))}
     </>
