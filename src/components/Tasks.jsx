@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faRemove } from "@fortawesome/free-solid-svg-icons";
 import Task from "./Task";
 
 const Tasks = ({ tasks, onToggle, onEditClick, onDelete }) => {
@@ -17,7 +19,14 @@ const Tasks = ({ tasks, onToggle, onEditClick, onDelete }) => {
               className={`task ${task.completed ? "reminder" : ""}`}
               key={task.id}
             >
-              <h3>{task.text}</h3>
+              <h3>
+                {task.text}{" "}
+                <FontAwesomeIcon
+                  icon={faRemove}
+                  style={{ float: "right", paddingLeft: "20px", color: "red" }}
+                  onClick={() => onDelete(task.id)}
+                />
+              </h3>
               <h5>{task.description}</h5>
               <h6>{task.date}</h6>
               <h6>{task.priority}</h6>
