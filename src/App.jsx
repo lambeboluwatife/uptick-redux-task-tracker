@@ -52,6 +52,15 @@ const App = () => {
     setIsEditing(false);
   };
 
+  const toggleStatus = (id) => {
+    const taskToToggle = tasks.tasks.find((task) => task.id == id);
+    const completed = taskToToggle.completed;
+
+    db.tasks.update(id, { completed: !completed }).then(() => {
+      dispatch(tasksActions.toggleStatus(id));
+    });
+  };
+
   // Delete Task
   const deleteTask = async (id) => {
     db.transaction("rw", db.tasks, function () {
@@ -63,14 +72,6 @@ const App = () => {
     });
   };
 
-  const toggleStatus = (id) => {
-    const taskToToggle = tasks.tasks.find((task) => task.id == id);
-    if (taskToToggle) {
-      taskToToggle.completed = !taskToToggle.completed;
-    }
-
-    dispatch(tasksActions.toggleStatus(id));
-  };
   return (
     <>
       <div className="container">

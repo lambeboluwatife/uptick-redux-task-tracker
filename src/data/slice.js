@@ -29,12 +29,11 @@ const tasksSlice = createSlice({
       }
     },
     toggleStatus: (state, action) => {
-      const taskToToggle = state.tasks.find(
-        (task) => task.id == action.payload
-      );
+      const { id } = action.payload;
+      const taskToToggle = state.tasks.find((task) => task.id == id);
 
       if (taskToToggle) {
-        taskToToggle.completed = !taskToToggle.completed;
+        taskToToggle.completed = toggle;
       }
     },
     deleteTask: (state, action) => {
